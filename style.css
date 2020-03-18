@@ -1,0 +1,122 @@
+a{
+    text-decoration:  none;
+    color:#d43fbb;
+}
+p{
+    color: grey;
+    font-size: 25px;
+}
+.first-letter{
+    font-size: 40px;
+}
+h1{
+    color: grey;
+   
+}
+.left-side{
+    float: left;
+    width: 55%;
+}
+
+.right-side{
+    float: right;
+}
+
+img{
+    border-radius: 50%;
+    height: 270px;
+    margin-top: 38px;
+}
+
+body{
+    line-height: 1;
+   //margin: 0px 100px;
+}
+
+#logo{
+    float: left;
+    width: 100%;
+}
+
+#header{
+    margin-bottom: 68px;
+    
+}
+
+.header-in{
+    font-size: 20px;
+    float: left;
+    width: 20%;
+}
+
+ul {
+    list-style: none;
+    padding-left: 53%;
+}
+
+li {
+    display: inline-block;
+    margin: 0px 10px;
+    color: antiquewhite;
+    font-size: 20px;
+}
+
+nav{
+    float: right;
+    width: 80%;
+}
+
+#details{
+    font-size: 15px;
+}
+
+#foot{
+    display: inline-block;
+   //float: right;
+   // background-color: #e0c8c8;
+    background: url('https://www.jaredigital.com/img/skippy.gif')
+    no-repeat;
+    background-position: right;
+}
+
+footer{
+    clear: both;
+    background: rgba(244, 244, 244, 100);
+    border-bottom: 20px solid #fff;
+    //bottom: 0;
+    top: 900px;
+    padding: 50px 20px;
+    width: 90%;
+    position: absolute;
+}
+
+.square{
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+}
+
+.w-15{
+    width: 15%;
+}
+
+.w-30{
+    width: 30%;
+}
+
+.w-45{
+    width: 45%;
+}
+
+.main-content{
+    margin: 0px 118px;
+    position: relative;
+}
+
+@media all and (max-width: 500px){
+    body{
+        width: 500px;
+        clear: both;
+        background-color: blueviolet;
+    }
+}

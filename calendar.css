@@ -1,0 +1,14 @@
+td{
+    //widht: 40px;
+    height: 80px;
+    border: 2px solid blanchedalmond;
+}
+
+th{
+    width: 86px;
+}
+
+table{
+   border-collapse: collapse; 
+   text-align: right;
+}

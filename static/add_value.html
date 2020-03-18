@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name='first'>
+    <input type="text" name='first'>
+    <input type="text" name='first'>
+    <input type="text" name='first'>
+    <textarea name="what" id="id-what" cols="30" rows="10"></textarea>
+    <input type="button" onclick="addElement()" value='submit'>
+</body>
+<script>
+    function addElement(){
+        var element = document.getElementsByName("first");
+        element.forEach(element => {
+        if(element.value){
+        document.getElementById('id-what').innerHTML += element.value + '\n';
+        }
+        else{
+            document.getElementById('id-what').innerHTML = '';
+            break;
+        }
+    });
+}
+</script>
+</html>
