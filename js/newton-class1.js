@@ -18,7 +18,11 @@ function hipHipArray(a){
 
 
 function leapYear(a){
-    if(a % 4 == 0 || (a % 100 == 0 && a % 400 == 0))
+    if(a % 4 == 0)
+    if(a % 100 == 0 && a % 400 == 0)
     return 'leap year';
+    else
+    return 'Not a leap year';
+
     return 'Not a leap year';
 }

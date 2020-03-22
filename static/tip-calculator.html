@@ -7,24 +7,8 @@
     <link rel="stylesheet" href="../css/tipCalculator.css">
     <title>Document</title>
     <style>
-        body{
-          //  background: url(https://img.freepik.com/free-photo/sunset-pool_1203-3192.jpg?size=626&ext=jpg) 
-            no-repeat;
-            background-size: 100%;
-        }
-
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-        }
-        .position-from-top
-        {
-            margin-top: 120px;
-        }
-        button{
-            margin: 10px 35%;
-        }
+        
+        
     </style>
 </head>
 <body>
@@ -40,18 +24,19 @@
             
           </div>
 
-          <div class="col-sm border border-primary ">
+          <div class="col-sm content box">
             <div class="form-group">
-                <label class="text-info">Fee to pay:</label><br>
+                <label class="text-info"></label><br>
                 <input type="number" name="username" id="fee" class="form-control"
-                placeholder="Fee to pay">
+                placeholder="Fee to pay" onkeyup="requireDataDenoter('fee')">
+                <div class="alert alert-danger alert-support">Kindly enter your bill </div>
             </div>
             <select id="percentage" class="form-control">
                 <option value="5">Bad</option>
                 <option value="10">Average</option>
                 <option value="18">Good</option>
             </select>
-            <button class="btn btn-warning btn-lg" onclick="tipCalculator()">submit</button>
+            <button class="btn btn-warning btn-lg button" onclick="tipCalculator()">submit</button>
 
           </div>
 
