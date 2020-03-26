@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+    <title>Hello, world!</title>
+    <style>
+        .col-sm-4 img {
+            width: 100%;
+            height: auto;
+        }
+
+        body {
+            color: rebeccapurple;
+            background-color: bisque;
+        }
+
+        .container-fluid img {
+            width: 100%;
+        }
+
+        .col-sm-4:hover img {
+            opacity: 0.3;
+        }
+
+        .text {
+            font-size: 16px;
+            text-align: justify;
+            color: rebeccapurple;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .col-sm-4:hover .middle {
+            opacity: 1;
+        }
+
+        .first {
+            margin-bottom: 50px;
+        }
+
+        span {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Quirky</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Cart <span
+                        class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Character 1</a></li>
+                            <li><a href="#">Character 2</a></li>
+                            <li><a href="#">Character 3</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated Characters</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Customized characters</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid first">
+        <img src="https://cdn.pixabay.com/photo/2018/04/19/21/17/lion-3334357_960_720.jpg" alt="">
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5af576576554160a79bea090.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5af5764b6554160a79bea08f.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5af575fa6554160a79bea088.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="https://d33wubrfki0l68.cloudfront.net/1dbc465f56f3a812f09666f522fa226efd947cfa/a4d9f/images/smashing-cat/newsletter-fish-cat.svg"
+                    alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5ba8d621554c7f08176ebfb9.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5b3749284f74255974b41c3b.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5a9449c09fc609199d0feef7.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5bbb1af89ecb0f1f971a7737.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://www.stickpng.com/assets/thumbs/5bbb1a4f9ecb0f1f971a7724.png" alt="">
+                <div class="middle">
+                    <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure non nobis
+                        accusantium architecto aperiam necessitatibus mollitia ut itaque libero consequuntur beatae ab,
+                        cupiditate eaque recusandae enim, a ratione ad id!
+
+                    </div>
+                    <button class="btn btn-primary">Add to cart <span
+                            class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
