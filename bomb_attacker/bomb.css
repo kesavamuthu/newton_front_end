@@ -1,0 +1,16 @@
+.border{
+    border: brown 2px solid;
+    padding: 20px;
+}
+
+.filler{
+    background: chartreuse;
+}
+
+.negative{
+    background: red;
+}
+
+.deactivate{
+    pointer-events: none;
+}
