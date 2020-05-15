@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function converter(){
+            var tmp = document.getElementById('first').value;
+            var no = Number(document.getElementById('some').value);
+            if(tmp == 0)
+            console.log(no.toString(2))
+            else if(tmp == 1)
+            console.log(no.toString(8))
+            else if(tmp == 2)
+            console.log(no.toString(16))
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id='some' >
+    <select name="" id="first" onchange="converter(this)">
+        <option value=""><--select-></option>
+        <option value="0">Binary</option>
+        <option value="1">Octal</option>
+        <option value="2">Hexa Decimal</option>
+    </select>
+</body>
+</html>

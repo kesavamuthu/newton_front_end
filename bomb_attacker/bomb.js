@@ -1,3 +1,4 @@
+'use strict'
 function initialize() {
     pageSetter();
 }
@@ -5,7 +6,7 @@ let bombLocation = [];
 let count = 1;
 let div;
 
-function pageSetter(limit1 = 8, limit2 = 8) {
+function pageSetter(limit1 = 9, limit2 = 9) {
     let h2 = document.createElement('h2');
     h2.innerHTML='Mine sweeper !';
     div = document.createElement('div');
@@ -13,7 +14,7 @@ function pageSetter(limit1 = 8, limit2 = 8) {
     let div2;
     let tmp;
     bombLocation = [];
-    for (let i = 0; i < 9; ++i) {
+    for (let i = 0; i < limit1; ++i) {
         div1 = document.createElement('div');
         div1.setAttribute('class', 'row');
         tmp = Math.floor(Math.random() * limit2);
@@ -22,26 +23,26 @@ function pageSetter(limit1 = 8, limit2 = 8) {
             div2 = document.createElement('div');
             div2.setAttribute('class', 'col');
             div2.setAttribute('class', 'border');
-            div2.value = j == tmp ? true : false;
+            div2.value = `${i}${j}`;
             div2.onclick = valuer;
             div1.appendChild(div2);
         }
-        console.log(tmp);
+      //  console.log(tmp);
         div.appendChild(div1);
     }
     div.setAttribute('class', 'container');
     let ano = document.createElement('div');
     ano.setAttribute('id', 'points');
-    // ano.classList.add('filler', 'col');
     ano.innerHTML = 'Points : ';
     div.append(ano);
-    h2.appendChild(div);
-    //div.innerHTML = div + '<input type="text">';
     document.body.appendChild(h2);
+    document.body.appendChild(div);
 }
 
 function valuer() {
-    if (!this.value) {
+    let tmp = this.value.split('');
+  //  console.log(tmp)
+    if (tmp[1] != bombLocation[tmp[0]]) {
         this.classList.add('filler', 'deactivate');
         document.getElementById('points').innerHTML = 'Points: ' + count++;
     }
@@ -61,7 +62,6 @@ function valuer() {
         button.setAttribute('value', 'Play again');
         div.append(button);
     }
-    console.log(this.value);
 }
 
 function restarter() {
