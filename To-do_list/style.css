@@ -2,3 +2,12 @@
     text-decoration: line-through;
     color: green;
 }
+
+div{
+    margin-left: 2px;
+    display: inline;
+}
+
+li{
+    display: inline-block;
+}

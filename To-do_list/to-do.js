@@ -71,8 +71,8 @@ class ToDoList {
       removeTaskButton.className = "delete-task-button";
       removeTaskButton.appendChild(removeIcon);
       li.innerHTML = element.text;
-      li.appendChild(removeTaskButton);
       ul.appendChild(li);
+      ul.appendChild(removeTaskButton);
     });
     this.body.appendChild(ul);
     this.saveTasksInLocalStorage();
