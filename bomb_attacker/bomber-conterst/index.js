@@ -1,7 +1,6 @@
 "use strict";
 class LocationDetails {
   constructor(hasBomb = false) {
-    // this.value = value;
     this.click = false;
     this.hasBomb = hasBomb;
   }
@@ -27,11 +26,11 @@ class Game {
     this.locationDetailsCollections = [];
     for (let i = 1; i < maxLimit + 1; ++i) {
       div = document.createElement("div");
-      //div.innerHTML = ' ';
       this.locationDetailsCollections.push(
         new LocationDetails(bombLocation.includes(i))
       );
       div.classList.add("border");
+      div.style.verticalAlign='bottom';
       div.addEventListener("click", (event) => {
         if(!this.locationDetailsCollections[i - 1].click){
         if (this.locationDetailsCollections[i - 1].hasBomb) {
@@ -54,7 +53,7 @@ class Game {
       });
       div.addEventListener("contextmenu", (event) => {
         event.preventDefault();
-        if (this.locationDetailsCollections[i - 1].hasBomb) {
+        if (this.locationDetailsCollections[i - 1].hasBomb && !this.locationDetailsCollections[i - 1].click) {
           event.target.innerHTML = "bo";
         }
       });
@@ -85,9 +84,11 @@ class Game {
   showAllBombLocation() {
     const root = document.getElementById("root");
     const allDiv = root.getElementsByClassName("border");
-    for (let i = 0; i < this.limit1 * this.limit1; ++i)
+    for (let i = 0; i < this.limit1 * this.limit1; ++i){
       if (this.locationDetailsCollections[i].hasBomb)
         allDiv[i].style.backgroundColor = "red";
+      this.locationDetailsCollections[i].click = true;
+      }
   }
 
   getBombCountAroundDiv(passedIndex) {
