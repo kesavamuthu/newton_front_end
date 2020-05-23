@@ -37,7 +37,7 @@ class Quiz {
     root.appendChild(mainDiv);
     this.endTime = new Date().getTime() +(15 * 60000);
     // setInterval(this.hai, 550);
-    setInterval(countDownTimer(new Date().getTime(), this.endTime), 1000);
+    setInterval(countDownTimer(this.endTime), 1000);
     quiz.questionAndOptionsRender();
    
   }
@@ -127,9 +127,9 @@ class Quiz {
 
 }
 
-function countDownTimer(currentTime, endTime){
+function countDownTimer(endTime){
   return () => {
-    // let currentTime = new Date().getTime();
+    let currentTime = new Date().getTime();
     currentTime = endTime - currentTime;
     // timer.innerText = '';
     let min = Math.floor((currentTime % (1000 * 60 * 60)) / (1000 * 60));
