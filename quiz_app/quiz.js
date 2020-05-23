@@ -4,6 +4,7 @@ class Quiz {
     this.answers = answers;
     this.wholeObjects = [];
     // this.skeletonMaker();
+    this.endTime;
     this.initialPageRender();
     this.wholeObjectsSetter();
   }
@@ -34,16 +35,10 @@ class Quiz {
     mainDiv = document.createElement("div");
     mainDiv.classList.add("col-4");
     root.appendChild(mainDiv);
+    this.endTime = new Date().getTime() +(15 * 60000);
+    setInterval(this.countDownTimer, 1000);
     quiz.questionAndOptionsRender();
-    // for(let i = 1; i < 5; i++){
-    //     span = document.createElement('span');
-    //     span.setAttribute('id', 'option' + i);
-    //     div.appendChild(span);
-    //     if(i % 2 == 0){
-    //         root.appendChild(div);
-    //         div = document.createElement('div');
-    //     }
-    // }
+   
   }
 
   questionAndOptionsRender(index = 0) {
@@ -58,14 +53,14 @@ class Quiz {
     answerSecTwo.innerHTML = "";
     pageObject.options.forEach((value, ind) => {
       span = document.createElement("span");
-      span.value=ind;
+      span.value = ind;
       span.classList.add("col-4");
-      span.addEventListener('click', (event) => {
-      if(!pageObject.isAttempted)
-      event.target.style.backgroundColor='green';
-      console.log(event.target.value)
-      pageObject.isAttempted=true;
-      })
+      span.addEventListener("click", (event) => {
+        if (!pageObject.isAttempted)
+          event.target.style.backgroundColor = "green";
+        console.log(event.target.value);
+        pageObject.isAttempted = true;
+      });
       span.innerText = value;
       if (ind < 2) answerSecOne.appendChild(span);
       else answerSecTwo.appendChild(span);
@@ -80,6 +75,8 @@ class Quiz {
     });
     if (index < this.wholeObjects.length)
       document.getElementsByClassName("col-8")[0].appendChild(button);
+      span = document.createElement("span");
+
   }
 
   wholeObjectsSetter() {
@@ -126,7 +123,25 @@ class Quiz {
     button.addEventListener("click", this.skeletonMaker);
     middleDiv.appendChild(button);
   }
+
+   countDownTimer(){
+    // const timer = document.getElementById('timer');
+    let currentTime = new Date().getTime();
+    currentTime = endTime - currentTime;
+    // timer.innerText = '';
+    let min = Math.floor((currentTime % (1000 * 60 * 60)) / (1000 * 60));
+    // let min = 0;
+    let sec = Math.floor((currentTime % (1000 * 60)) / 1000);
+    // sec = sec < 10 ? '0' + sec : sec;
+    // min = min < 10 ? '0' + min : min;
+    // if(sec == 59)
+    // ++min;
+    console.log(min, sec);
+    timer.innerText = min + ' : ' + sec;
+  }
 }
+
+
 
 function getQuestions(count = 10) {
   const questions = [];
