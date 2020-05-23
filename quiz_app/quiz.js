@@ -36,7 +36,8 @@ class Quiz {
     mainDiv.classList.add("col-4");
     root.appendChild(mainDiv);
     this.endTime = new Date().getTime() +(15 * 60000);
-    setInterval(this.countDownTimer, 1000);
+    // setInterval(this.hai, 550);
+    setInterval(countDownTimer(new Date().getTime(), this.endTime), 1000);
     quiz.questionAndOptionsRender();
    
   }
@@ -124,9 +125,11 @@ class Quiz {
     middleDiv.appendChild(button);
   }
 
-   countDownTimer(){
-    // const timer = document.getElementById('timer');
-    let currentTime = new Date().getTime();
+}
+
+function countDownTimer(currentTime, endTime){
+  return () => {
+    // let currentTime = new Date().getTime();
     currentTime = endTime - currentTime;
     // timer.innerText = '';
     let min = Math.floor((currentTime % (1000 * 60 * 60)) / (1000 * 60));
@@ -137,11 +140,9 @@ class Quiz {
     // if(sec == 59)
     // ++min;
     console.log(min, sec);
-    timer.innerText = min + ' : ' + sec;
+    // timer.innerText = min + ' : ' + sec;
   }
 }
-
-
 
 function getQuestions(count = 10) {
   const questions = [];
