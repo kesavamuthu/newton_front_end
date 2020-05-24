@@ -6,8 +6,9 @@ class Quiz {
     this.wholeObjects = [];
     // this.skeletonMaker();
     this.endTime;
-    this.initialPageRender();
     this.wholeObjectsSetter();
+    this.questionAndOptionsRender();
+    this.questionsSideBar();
   }
 
   skeletonMaker() {
@@ -52,39 +53,85 @@ class Quiz {
 
   questionAndOptionsRender(index = 0) {
     const root = document.getElementById('root');
+    let questionIndex = document.getElementById("question-index");
     let question = document.getElementById("question");
-    let answerSecOne = document.getElementById("first-row");
-    let answerSecTwo = document.getElementById("second-row");
-    let span;
+    let answerSecOne = document.getElementsByTagName('ul')[0];
+    let list;
     let pageObject = this.wholeObjects[index];
+    questionIndex.innerText = "";
+    questionIndex.innerText = "Question : " +( index + 1);
     question.innerText = "";
     question.innerText = pageObject.question;
     answerSecOne.innerHTML = "";
-    answerSecTwo.innerHTML = "";
     pageObject.options.forEach((value, ind) => {
-      span = document.createElement("span");
-      span.value = ind;
-      span.classList.add("col-4");
-      span.addEventListener("click", (event) => {
-        if (!pageObject.isAttempted)
+      list = document.createElement("li");
+      list.value = ind;
+      list.classList.add("list-group-item");
+      list.addEventListener("click", (event) => {
+        if (!pageObject.isAttempted){
           event.target.style.backgroundColor = "green";
+          pageObject.userAnswer = event.target.value;
+        }
+        if(ind == pageObject.userAnswer && pageObject.userAnswer == pageObject.answer)
+          list.style.backgroundColor = "green";
         console.log(event.target.value);
         pageObject.isAttempted = true;
       });
-      span.innerText = value;
-      if (ind < 2) answerSecOne.appendChild(span);
-      else answerSecTwo.appendChild(span);
+      list.innerText = value;
+      answerSecOne.appendChild(list)
     });
-    if (document.getElementsByTagName("button")[0])
-      document.getElementsByTagName("button")[0].remove();
-    let button = document.createElement("button");
+    if (document.getElementsByTagName("a")[0])
+      document.getElementsByTagName("a")[0].remove();
+    let button = document.createElement("a");
     button.innerText = "Next";
+    button.classList.add("btn","btn-primary","btn-lg")
     index++;
     button.addEventListener("click", function () {
       quiz.questionAndOptionsRender(index);
+      quiz.questionsSideBar();
     });
     if (index < this.wholeObjects.length)
-      document.getElementsByClassName("col-sm-8")[0].appendChild(button);
+      document.getElementsByClassName("jumbotron")[0].appendChild(button);
+    else
+    quiz.questionAndOptionsRender();
+  }
+
+  questionsSideBar(){
+    let cardBody = document.getElementsByClassName('card-body')[0];
+    cardBody.innerHTML = '';
+    let head = document.createElement('h5');
+    head.classList.add("card-title");
+    head.innerText='Points : ';
+    let pgh = document.createElement('p');
+    let span = document.createElement('span');
+    let count = 0;
+    let correctAnswers = this.wholeObjects.length;
+    pgh.classList.add("card-text");
+    pgh.style.marginTop='20px';
+    cardBody.appendChild(head);
+    this.wholeObjects.forEach((value, index) =>{
+      span = document.createElement('span');
+      span.classList.add("rounded-circle", "border","border-dark", "padding");
+      span.addEventListener('click', (index) =>{
+        quiz.questionAndOptionsRender(index)
+      })
+      if(value.answer == value.userAnswer)
+      span.classList.add('bg');
+      else{
+      head.innerHTML = 'Points : ' + (correctAnswers - 1);
+     
+    }
+      span.innerText= index < 9 ? "0" + (index + 1) : index + 1;
+      pgh.appendChild(span);
+      ++count;
+      if(count == 3){
+        cardBody.appendChild(pgh);
+        pgh = document.createElement('p');
+        pgh.classList.add("card-text");
+        pgh.style.marginTop='20px';
+        count = 0;
+      }
+    })
   }
 
   wholeObjectsSetter() {
@@ -100,39 +147,6 @@ class Quiz {
       this.wholeObjects.push(obj);
     });
   }
-
-  initialPageRender() {
-    const root = document.getElementById("root");
-    root.innerHTML = "";
-    const body = document.getElementsByTagName("body")[0];
-    let header = document.createElement("h1");
-    let div;
-    let divRow;
-    let middleDiv;
-    body.style.backgroundColor = "salmon";
-    body.style.font = "comic sans ms";
-    divRow = document.createElement("div");
-    divRow.classList.add("row");
-    for (let i = 0; i < 3; ++i) {
-      div = document.createElement("div");
-      div.classList.add("col-sm");
-      divRow.appendChild(div);
-    }
-
-    header.innerText = "The quiz app";
-    header.classList.add("center");
-    root.classList.add("container");
-    root.appendChild(divRow);
-    middleDiv = document.getElementsByClassName("col-sm")[1];
-    middleDiv.classList.add("initialPage");
-    middleDiv.appendChild(header);
-    const button = document.createElement("button");
-    button.innerText = "Begin";
-    button.classList.add('btn', 'btn-dark');
-    button.addEventListener("click", this.skeletonMaker);
-    middleDiv.appendChild(button);
-  }
-
 }
 
 function countDownTimer(endTime){
@@ -154,7 +168,7 @@ function countDownTimer(endTime){
   }
 }
 
-function getQuestions(count = 10) {
+function getQuestions(count = 20) {
   const questions = [];
   const template = "This is dummy question no : ";
   for (let i = 0; i < count; i++) questions.push(template + (i + 1));
