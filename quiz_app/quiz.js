@@ -112,8 +112,8 @@ class Quiz {
     this.wholeObjects.forEach((value, index) =>{
       span = document.createElement('span');
       span.classList.add("rounded-circle", "border","border-dark", "padding");
-      span.addEventListener('click', (index) =>{
-        quiz.questionAndOptionsRender(index)
+      span.addEventListener('click', () =>{
+        quiz.questionAndOptionsRender(this.index)
       })
       if(value.answer == value.userAnswer)
       span.classList.add('bg');
