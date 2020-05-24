@@ -4,54 +4,75 @@ class Quiz {
     this.questions = questions;
     this.answers = answers;
     this.wholeObjects = [];
+    this.flag = false;
+    this.isFinished = false;
     // this.skeletonMaker();
-    this.endTime;
-    this.wholeObjectsSetter();
+    if(localStorage.getItem('wh')){
+      this.tmp = JSON.parse(localStorage.getItem('wh'));
+      this.tmp = this.tmp.pop();
+      if(this.tmp && this.tmp.endTime > new Date().getTime()){
+        this.wholeObjects = this.tmp.wholeObjects;
+        this.endTime = this.tmp.endTime;
+        this.flag = true;
+      }
+    }
+    if(!this.flag){
+      this.wholeObjectsSetter();
+      this.endTime = new Date().getTime() +(2 * 60000);
+    }
+    if(!localStorage.getItem('wh')){
+      state.wholeObjects = this.wholeObjects;
+      state.endTime = this.endTime;
+      localStorage.setItem('wh', JSON.stringify([state]))
+    }
     this.questionAndOptionsRender();
     this.questionsSideBar();
-  }
-
-  skeletonMaker() {
-    const root = document.getElementById("root");
-    root.innerHTML = "";
-    let div;
-    let span;
-    let mainRow;
-    mainRow = document.createElement("div");
-    mainRow.classList.add("row");
-    let mainDiv = document.createElement("div");
-    mainDiv.classList.add("col-sm-8");
-    div = document.createElement("div");
-    div.classList.add("row");
-    div.setAttribute("id", "question");
-    mainDiv.appendChild(div);
-
-    div = document.createElement("div");
-    div.setAttribute("id", "first-row");
-    div.classList.add("row");
-    mainDiv.appendChild(div);
-
-    div = document.createElement("div");
-    div.setAttribute("id", "second-row");
-    div.classList.add("row");
-    mainDiv.appendChild(div);
-    mainRow.appendChild(mainDiv);
-
-    mainDiv = document.createElement("div");
-    mainDiv.classList.add("col-sm-4");
-    mainRow.appendChild(mainDiv);
-    span = document.createElement("span");
-    span.setAttribute('id', 'timer');
-    mainDiv.appendChild(span);
-    root.appendChild(mainRow);
-    this.endTime = new Date().getTime() +(0.5 * 60000);
-    // setInterval(this.hai, 550);
+    
     x = setInterval(countDownTimer(this.endTime), 500);
-    quiz.questionAndOptionsRender();
-   
   }
+
+  // skeletonMaker() {
+  //   const root = document.getElementById("root");
+  //   root.innerHTML = "";
+  //   let div;
+  //   let span;
+  //   let mainRow;
+  //   mainRow = document.createElement("div");
+  //   mainRow.classList.add("row");
+  //   let mainDiv = document.createElement("div");
+  //   mainDiv.classList.add("col-sm-8");
+  //   div = document.createElement("div");
+  //   div.classList.add("row");
+  //   div.setAttribute("id", "question");
+  //   mainDiv.appendChild(div);
+
+  //   div = document.createElement("div");
+  //   div.setAttribute("id", "first-row");
+  //   div.classList.add("row");
+  //   mainDiv.appendChild(div);
+
+  //   div = document.createElement("div");
+  //   div.setAttribute("id", "second-row");
+  //   div.classList.add("row");
+  //   mainDiv.appendChild(div);
+  //   mainRow.appendChild(mainDiv);
+
+  //   mainDiv = document.createElement("div");
+  //   mainDiv.classList.add("col-sm-4");
+  //   mainRow.appendChild(mainDiv);
+  //   span = document.createElement("span");
+  //   span.setAttribute('id', 'timer');
+  //   mainDiv.appendChild(span);
+  //   root.appendChild(mainRow);
+  //   this.endTime = new Date().getTime() +(2 * 60000);
+  //   // setInterval(this.hai, 550);
+  //   x = setInterval(countDownTimer(this.endTime), 500);
+  //   quiz.questionAndOptionsRender();
+   
+  // }
 
   questionAndOptionsRender(index = 0) {
+    index = index >= this.wholeObjects.length ? 0 : index;
     const root = document.getElementById('root');
     let questionIndex = document.getElementById("question-index");
     let question = document.getElementById("question");
@@ -68,15 +89,21 @@ class Quiz {
       list.value = ind;
       list.classList.add("list-group-item");
       list.addEventListener("click", (event) => {
-        if (!pageObject.isAttempted){
+        if (!this.isFinished){
           event.target.style.backgroundColor = "green";
           pageObject.userAnswer = event.target.value;
-        }
-        if(ind == pageObject.userAnswer && pageObject.userAnswer == pageObject.answer)
-          list.style.backgroundColor = "green";
-        console.log(event.target.value);
+          console.log(event.target.value);
         pageObject.isAttempted = true;
+        state.wholeObjects = this.wholeObjects;
+        state.endTime = this.endTime;
+        this.tmp = JSON.parse(localStorage.getItem('wh'));
+        this.tmp.push(state);
+        localStorage.setItem('wh', JSON.stringify(this.tmp));
+        }
+        this.questionAndOptionsRender(index);
       });
+      if(ind === pageObject.userAnswer)
+          list.style.backgroundColor = "green";
       list.innerText = value;
       answerSecOne.appendChild(list)
     });
@@ -85,9 +112,9 @@ class Quiz {
     let button = document.createElement("a");
     button.innerText = "Next";
     button.classList.add("btn","btn-primary","btn-lg")
-    index++;
+    // index++;
     button.addEventListener("click", function () {
-      quiz.questionAndOptionsRender(index);
+      quiz.questionAndOptionsRender(index + 1);
       quiz.questionsSideBar();
     });
     if (index < this.wholeObjects.length)
@@ -113,12 +140,12 @@ class Quiz {
       span = document.createElement('span');
       span.classList.add("rounded-circle", "border","border-dark", "padding");
       span.addEventListener('click', () =>{
-        quiz.questionAndOptionsRender(this.index)
+        quiz.questionAndOptionsRender(index)
       })
       if(value.answer == value.userAnswer)
       span.classList.add('bg');
       else{
-      head.innerHTML = 'Points : ' + (correctAnswers - 1);
+      head.innerHTML = 'Points : ';
      
     }
       span.innerText= index < 9 ? "0" + (index + 1) : index + 1;
@@ -130,6 +157,9 @@ class Quiz {
         pgh.classList.add("card-text");
         pgh.style.marginTop='20px';
         count = 0;
+      }
+      if(index + 1 == this.wholeObjects.length){
+        cardBody.appendChild(pgh);
       }
     })
   }
@@ -147,7 +177,23 @@ class Quiz {
       this.wholeObjects.push(obj);
     });
   }
+
+  finishIt(){
+    let count = 0;
+    let attemptCount = 0;
+    this.wholeObjects.forEach((value) =>{
+      if(value.userAnswer === value.answer)
+      ++count;
+      if(value.isAttempted)
+      ++attemptCount;
+    })
+    document.getElementsByClassName('card-header')[0].innerHTML='Questions Attempted : ' + count;
+    document.getElementsByClassName('card-title')[0].innerHTML='Points : ' + attemptCount;
+    // return count;
+  }
 }
+
+const state = {};
 
 function countDownTimer(endTime){
   return () => {
@@ -155,22 +201,21 @@ function countDownTimer(endTime){
     currentTime = endTime - currentTime;
     timer.innerText = '';
     let min = Math.floor((currentTime % (1000 * 60 * 60)) / (1000 * 60));
-    // let min = 0;
     let sec = Math.floor((currentTime % (1000 * 60)) / 1000);
     sec = sec < 10 ? '0' + sec : sec;
     min = min < 10 ? '0' + min : min;
-    // if(sec == 59)
-    // ++min;
-    console.log(min, sec);
-    if(sec == 0)
+    if(min <= 0 && sec <= 0){
     clearInterval(x);
+    quiz.finishIt();
+    quiz.isFinished = true;
+  }
     timer.innerText = min + ' : ' + sec;
   }
 }
 
 function getQuestions(count = 20) {
   const questions = [];
-  const template = "This is dummy question no : ";
+  const template = "This is dummy question with details ";
   for (let i = 0; i < count; i++) questions.push(template + (i + 1));
   return questions;
 }
