@@ -25,51 +25,11 @@ class Quiz {
       state.endTime = this.endTime;
       localStorage.setItem('wh', JSON.stringify([state]))
     }
-    this.questionAndOptionsRender();
     this.questionsSideBar();
+    this.questionAndOptionsRender();
     
     x = setInterval(countDownTimer(this.endTime), 500);
   }
-
-  // skeletonMaker() {
-  //   const root = document.getElementById("root");
-  //   root.innerHTML = "";
-  //   let div;
-  //   let span;
-  //   let mainRow;
-  //   mainRow = document.createElement("div");
-  //   mainRow.classList.add("row");
-  //   let mainDiv = document.createElement("div");
-  //   mainDiv.classList.add("col-sm-8");
-  //   div = document.createElement("div");
-  //   div.classList.add("row");
-  //   div.setAttribute("id", "question");
-  //   mainDiv.appendChild(div);
-
-  //   div = document.createElement("div");
-  //   div.setAttribute("id", "first-row");
-  //   div.classList.add("row");
-  //   mainDiv.appendChild(div);
-
-  //   div = document.createElement("div");
-  //   div.setAttribute("id", "second-row");
-  //   div.classList.add("row");
-  //   mainDiv.appendChild(div);
-  //   mainRow.appendChild(mainDiv);
-
-  //   mainDiv = document.createElement("div");
-  //   mainDiv.classList.add("col-sm-4");
-  //   mainRow.appendChild(mainDiv);
-  //   span = document.createElement("span");
-  //   span.setAttribute('id', 'timer');
-  //   mainDiv.appendChild(span);
-  //   root.appendChild(mainRow);
-  //   this.endTime = new Date().getTime() +(2 * 60000);
-  //   // setInterval(this.hai, 550);
-  //   x = setInterval(countDownTimer(this.endTime), 500);
-  //   quiz.questionAndOptionsRender();
-   
-  // }
 
   questionAndOptionsRender(index = 0) {
     index = index >= this.wholeObjects.length ? 0 : index;
@@ -121,6 +81,7 @@ class Quiz {
       document.getElementsByClassName("jumbotron")[0].appendChild(button);
     else
     quiz.questionAndOptionsRender();
+    this.finishIt();
   }
 
   questionsSideBar(){
@@ -140,7 +101,7 @@ class Quiz {
       span = document.createElement('span');
       span.classList.add("rounded-circle", "border","border-dark", "padding");
       span.addEventListener('click', () =>{
-        quiz.questionAndOptionsRender(index)
+        quiz.questionAndOptionsRender(index);
       })
       if(value.answer == value.userAnswer)
       span.classList.add('bg');
@@ -181,14 +142,17 @@ class Quiz {
   finishIt(){
     let count = 0;
     let attemptCount = 0;
-    this.wholeObjects.forEach((value) =>{
-      if(value.userAnswer === value.answer)
+    let spans = document.getElementsByClassName('rounded-circle');
+    this.wholeObjects.forEach((value, i) =>{
+      if(value.userAnswer === value.answer && quiz.isFinished)
       ++count;
-      if(value.isAttempted)
+      if(value.isAttempted){
+      spans[i].style.backgroundColor='black';
       ++attemptCount;
+      }
     })
-    document.getElementsByClassName('card-header')[0].innerHTML='Questions Attempted : ' + count;
-    document.getElementsByClassName('card-title')[0].innerHTML='Points : ' + attemptCount;
+    document.getElementsByClassName('card-header')[0].innerHTML='Questions Attempted : ' + attemptCount;
+    document.getElementsByClassName('card-title')[0].innerHTML='Points : ' + count;
     // return count;
   }
 }
@@ -208,6 +172,8 @@ function countDownTimer(endTime){
     clearInterval(x);
     quiz.finishIt();
     quiz.isFinished = true;
+    timer.innerText = 'Times Up!!!'
+    return;
   }
     timer.innerText = min + ' : ' + sec;
   }
