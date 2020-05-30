@@ -73,9 +73,9 @@ class Quiz {
     button.innerText = "Next";
     button.classList.add("btn","btn-primary","btn-lg")
     // index++;
-    button.addEventListener("click", function () {
+    button.addEventListener("click", () => {
       quiz.questionAndOptionsRender(index + 1);
-      quiz.questionsSideBar();
+      this.questionsSideBar();
     });
     if (index < this.wholeObjects.length)
       document.getElementsByClassName("jumbotron")[0].appendChild(button);
