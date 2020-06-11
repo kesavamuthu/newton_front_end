@@ -11,12 +11,15 @@
 
                         <div class="form-group">
                             <label for="UserName">Name</label>
-                            <input type="text" class="form-control" name='name'>
+                            <input type="text" class="form-control" name='name' pattern="^[A-Z]{1}([a-z]|\s){4,}"
+                                title="First letter should be capital, length > 4">
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email address:</label>
-                            <input type="email" class="form-control" id="email" name='email' onblur="validation('email')(this)">
+                            <input type="email" class="form-control" id="email" name='email'
+                                pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                                title="not a valid email" onblur="validation('email')(this)">
                         </div>
 
                         <div class="form-group">
@@ -26,7 +29,8 @@
 
                         <div class="form-group">
                             <label for="pwd">Mobile number:</label>
-                            <input type="text" class="form-control" id="pwd" name='mobnum'>
+                            <input type="text" class="form-control" id="pwd" name='mobnum' pattern="\d{10,12}"
+                                title="not a valid mobile number">
                         </div>
 
                         <div class="form-group">

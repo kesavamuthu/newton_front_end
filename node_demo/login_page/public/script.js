@@ -14,6 +14,15 @@ function validation(name) {
         : "";
     };
   }
+  else if (name == "name") {
+    return (pass) => {
+      pass.value = /^[A-Z]{1}([a-z]|\s){4,}/.test(
+        pass.value
+      )
+        ? pass.value
+        : "";
+    };
+  }
 }
 
 function basicValidation() {
