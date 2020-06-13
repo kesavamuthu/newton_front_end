@@ -35,14 +35,23 @@ con.connect(function (err) {
   else {
     app.get("/", (req, res) => {
       console.log(req.query);
-      queryHandler(req.query.name);
+      // queryHandler(req.query.name);
       res.render("index", { count: 0, name: "first name" });
     });
 
     app.get("/insert", (req, res) => {
       console.log(req.query);
-      let count = queryHandler(req.query.name, true);
-      res.render("index", { count: count, name: "first name" });
+      let count = queryHandler(req.query, true)
+        .then(res)
+        .then(function () {
+          console.log("value us " + JSON.stringify(res));
+          res.render("index", { count: res, name: "first name" });
+          // return res;
+        })
+        .catch((res) => {
+          console.error("Sorry it's failed to return");
+        });
+      res.send("some error occured" + res.count);
     });
   }
 });
@@ -81,32 +90,47 @@ app.listen(8080, () => {
 
 function queryHandler(values, flag) {
   let sql = "select count(*) as count from customers";
-  let res ;
-  con.query(sql, function (err, result) {
-    if (err) throw error;
-    console.log('result ---> ' + JSON.stringify(result));
-    res = result[0].count;
-    console.log(res);
-    // console.log("Inserted Successfully");
+  let res;
+  sql = "Insert into customers (name, click_count, time) values ( ?, ?, ? )";
+
+  con.query(sql, [values.name, 1, new Date().toISOString()], function (
+    err,
+    result
+  ) {
+    if (err) throw err;
+    console.log("Inserted Successfully" + JSON.stringify(result));
   });
+  // con.query(sql, function (err, result) {
+  //   if (err) throw error;
+  //   // console.log("result ---> " + JSON.stringify(result));
+  //   res = result[0].count;
+  //   // console.log(res);
+  //   // console.log("Inserted Successfully");
+  //   return res;
+  // });
+  // .then(() => res)
+  // .catch(() => console.error('nothing can"t do '));
   if (flag) {
     let time = new Date().toISOString();
-    sql =
-      "Insert into customers (name, click_count, time) values ('" +
-      values +
-      "'," +
-      1 +
-      ",'" +
-      time +
-      "')";
+    // sql =
+    //   "Insert into customers (name, click_count, time) values ('" +
+    //   values +
+    //   "'," +
+    //   1 +
+    //   ",'" +
+    //   time +
+    //   "')";
     // console.log(sql);
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log(result);
+    sql = "select count(*) as count from customers";
+    return new Promise(function (resolve, reject) {
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result[0].count);
+        resolve(result[0].count);
+      });
     });
   }
 
   // sql = ""
-  console.log('return value ' + res);
-  return res;
+  // console.log("return value " + res);
 }
