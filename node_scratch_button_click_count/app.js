@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 const handlebars = require("express-handlebars").create({
   defaultLayout: "main",
 });
+const port = 8080;
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.use(bodyParser());
@@ -20,72 +21,36 @@ var con = mysql.createConnection({
   database: "sakila",
 });
 
-// var con=mysql.createConnection({
-//   //Configuration Object
-//   host: "localhost",
-//   user:"root",
-
-// });
-
 con.connect(function (err) {
   if (err) {
     console.error("The error is  ---> " + err);
-  }
-  //   console.log("Connected to The Database");
-  else {
+  } else {
     app.get("/", (req, res) => {
       console.log(req.query);
-      // queryHandler(req.query.name);
       res.render("index", { count: 0, name: "first name" });
     });
 
-    app.get("/insert", (req, res) => {
-      console.log(req.query);
+    app.get("/insert", (req, response) => {
+      // console.log(req.query);
       let count = queryHandler(req.query, true)
-        .then(res)
-        .then(function () {
-          console.log("value us " + JSON.stringify(res));
-          res.render("index", { count: res, name: "first name" });
-          // return res;
+        .then(function (value) {
+          console.log("value us " + JSON.stringify(value));
+          response.render("index", {
+            count: value.count,
+            name: value.name,
+          });
         })
-        .catch((res) => {
+        .catch((value) => {
           console.error("Sorry it's failed to return");
         });
-      res.send("some error occured" + res.count);
+      console.log("passed one" + count);
     });
   }
 });
 
 function getData() {}
-// con.connect(function(err){
-//   if(err){throw err}
-//   console.log("Connected to The Database");
-// })
-
-//Creating A Database Connection
-
-// con.connect(function(err){
-//   if(err){throw err};
-// //   var values=[
-// //     ["nameA","addressA"],
-// //     ["nameB","adressB"],
-// //     ["namec","adressC"],
-// //   ]
-// //   var sql= "Insert into customer Values ?";
-//   // var sql="Select * from customers where name='b'";
-//   // var sql="Insert into customers(name,address) values('Hello','World')"
-//   // var sql="Delete from customers where address='PlaceB'";
-//   // var sql="Update customers set name='hello' where address='PlaceA'";
-
-//   con.query(sql,[values],function(err,result){
-//     if(err) throw error;
-//     console.log(result);
-//     console.log("Inserted Successfully");
-//   })
-// })
-
-app.listen(8080, () => {
-  console.log("listening ... 8080");
+app.listen(port, () => {
+  console.log("listening ... " + port);
 });
 
 function queryHandler(values, flag) {
@@ -100,37 +65,14 @@ function queryHandler(values, flag) {
     if (err) throw err;
     console.log("Inserted Successfully" + JSON.stringify(result));
   });
-  // con.query(sql, function (err, result) {
-  //   if (err) throw error;
-  //   // console.log("result ---> " + JSON.stringify(result));
-  //   res = result[0].count;
-  //   // console.log(res);
-  //   // console.log("Inserted Successfully");
-  //   return res;
-  // });
-  // .then(() => res)
-  // .catch(() => console.error('nothing can"t do '));
   if (flag) {
     let time = new Date().toISOString();
-    // sql =
-    //   "Insert into customers (name, click_count, time) values ('" +
-    //   values +
-    //   "'," +
-    //   1 +
-    //   ",'" +
-    //   time +
-    //   "')";
-    // console.log(sql);
-    sql = "select count(*) as count from customers";
+    sql = "select count(*) as count from customers where name = ?";
     return new Promise(function (resolve, reject) {
-      con.query(sql, function (err, result) {
+      con.query(sql, [values.name], function (err, result) {
         if (err) throw err;
-        console.log(result[0].count);
-        resolve(result[0].count);
+        resolve({ count: result[0].count, name: values.name });
       });
     });
   }
-
-  // sql = ""
-  // console.log("return value " + res);
 }
