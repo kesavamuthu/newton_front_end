@@ -14,7 +14,7 @@ app.engine(
   })
 );
 
-covidApi.all().then(console.log);
+covidApi.countries().then(console.log);
 app.get("/", function (req, res) {
   covidApi.countries().then((response) => {
     res.render("home", { info: response });

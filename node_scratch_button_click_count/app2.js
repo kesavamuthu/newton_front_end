@@ -30,11 +30,12 @@ con.connect(function (err) {
       res.render("index", { count: 0, name: "first name" });
     });
 
-    app.get("/insert", async function (req, response) {
+    app.get("/insert", async (req, response) => {
       // console.log(req.query);
-      let count;
+      //   let count;
       try {
-        count = await queryHandler(req.query, true);
+        // console.log(req);
+        const count = await queryHandler(req.query, true);
         console.log("value us " + count);
         response.render("index", {
           count: count.count,
@@ -44,7 +45,7 @@ con.connect(function (err) {
         console.error("error occured ", e);
         response.json({ error: "error occured" });
       }
-      console.log("passed one" + count);
+      console.log("passed one");
     });
   }
 });
@@ -67,10 +68,15 @@ function queryHandler({ name }, flag) {
     let time = new Date().toISOString();
     sql = "select count(*) as count from customers where name = ?";
     //return new Promise(function (resolve, reject) {
-    con.query(sql, [name], async function (err, result) {
+    con.query(sql, [name], function (err, result) {
       if (err) throw err;
       console.log("result----->", result, name);
-      return { count: result[0].count, name: name };
+      return new Promise(function (resolve, reject) {
+        resolve({
+          value: "qwert";
+        })
+      });
+      // { count: result[0].count, name: name };
     });
   }
 }

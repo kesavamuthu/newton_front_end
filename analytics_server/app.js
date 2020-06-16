@@ -1,18 +1,10 @@
 var mysql = require("mysql");
 const express = require("express");
+var mysql = require("mysql");
 var app = express();
 var bodyParser = require("body-parser");
-const handlebars = require("express-handlebars").create({
-  defaultLayout: "main",
-});
 const port = 8080;
-const express = require('express')
-app.engine("handlebars", handlebars.engine);
-app.set("view engine", "handlebars");
 app.use(bodyParser());
-app.use(express.static(__dirname + "/public"));
-
-var mysql = require("mysql");
 
 var con = mysql.createConnection({
   //Configuration Object
@@ -32,7 +24,6 @@ con.connect(function (err) {
     });
 
     app.get("/insert", (req, response) => {
-      // console.log(req.query);
       let count = queryHandler(req.query, true)
         .then(function (value) {
           console.log("value us " + JSON.stringify(value));
