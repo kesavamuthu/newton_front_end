@@ -17,8 +17,8 @@ var con = mysql.createConnection({
   //Configuration Object
   host: "127.0.0.1",
   user: "root",
-  password: "root",
-  database: "sakila",
+  password: "password",
+  database: "newton_school",
 });
 
 con.connect(function (err) {
@@ -31,12 +31,9 @@ con.connect(function (err) {
     });
 
     app.get("/insert", async (req, response) => {
-      // console.log(req.query);
-      //   let count;
       try {
-        // console.log(req);
         const count = await queryHandler(req.query, true);
-        console.log("value us " + count);
+        console.log("value us " + JSON.stringify(count));
         response.render("index", {
           count: count.count,
           name: count.name,
@@ -56,27 +53,25 @@ app.listen(port, () => {
 });
 
 function queryHandler({ name }, flag) {
-  let sql = "select count(*) as count from customers";
-  let res;
-  sql = "Insert into customers (name, click_count, time) values ( ?, ?, ? )";
+  // let sql = "select count(*) as count from customers";
+  let sql =
+    "Insert into customers (name, click_count, time) values ( ?, ?, ? )";
 
   con.query(sql, [name, 1, new Date().toISOString()], function (err, result) {
     if (err) throw err;
     console.log("Inserted Successfully" + JSON.stringify(result));
   });
   if (flag) {
-    let time = new Date().toISOString();
     sql = "select count(*) as count from customers where name = ?";
-    //return new Promise(function (resolve, reject) {
-    con.query(sql, [name], function (err, result) {
-      if (err) throw err;
-      console.log("result----->", result, name);
-      return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
+      con.query(sql, [name], function (err, result) {
+        if (err) throw err;
+        console.log("result----->", result, name);
         resolve({
-          value: "qwert";
-        })
+          count: result[0].count,
+          name,
+        });
       });
-      // { count: result[0].count, name: name };
     });
   }
 }

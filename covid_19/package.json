@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
+    "nodemon": "^2.0.4",
     "novelcovid": "^2.2.0"
   }
 }
