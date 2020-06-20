@@ -5,10 +5,10 @@ var bodyParser = require("body-parser");
 const handlebars = require("express-handlebars").create({
   defaultLayout: "main",
 });
-const port = 8080;
+const port = 3001;
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
-app.use(bodyParser());
+app.use(bodyParser());w
 app.use(express.static(__dirname + "/public"));
 
 var mysql = require("mysql");
@@ -53,7 +53,6 @@ app.listen(port, () => {
 });
 
 function queryHandler({ name }, flag) {
-  // let sql = "select count(*) as count from customers";
   let sql =
     "Insert into customers (name, click_count, time) values ( ?, ?, ? )";
 

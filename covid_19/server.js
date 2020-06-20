@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const covidApi = require("novelcovid");
-const port = 8080;
+const port = 8081;
 const handlebars = require("express-handlebars");
 
 app.set("view engine", "handlebars");
