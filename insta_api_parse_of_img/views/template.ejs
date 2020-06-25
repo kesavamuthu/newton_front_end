@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Let's Use EJS</title>
+  </head>
+  <body>
+    
+    <h2>My Favorite Things</h2>
+    <ul>
+      <% favoriteThings.forEach(function(thing){ %>
+      <li><img src='<%= thing.node.display_url %>' alt='some-image'> </img></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
