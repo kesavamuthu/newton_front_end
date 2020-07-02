@@ -121,4 +121,4 @@ constant.js
 .idea/
 .project
 .vscode
-.gitignore
+.env
