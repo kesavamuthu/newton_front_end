@@ -1,10 +1,10 @@
 const express = require("express");
-const constData = require("./constant").APP_CONST;
+// const constData = require("./constant").APP_CONST;
+const env = require("dotenv").config();
 let app = express();
 const bodyParser = require("body-parser");
 const mongoClient = require("mongodb");
-let url =
-  "mongodb+srv://demo:WE5Vydrar3Erys.@cluster0-tygzu.mongodb.net/node_with_mongo?retryWrites=true&w=majority";
+let url = process.env.MONGO_URL;
 
 app.use(bodyParser());
 
@@ -48,8 +48,8 @@ mongoClient
 
     // app.get('/click', functino)
 
-    app.listen(8080, function () {
-      console.log("listening --> " + 8080);
+    app.listen(3001, function () {
+      console.log("listening --> " + 3001);
     });
   })
   .catch((err) => console.log(err));
