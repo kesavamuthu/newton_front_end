@@ -7,7 +7,7 @@ const env = require("dotenv").config();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 var passport = require("passport");
-
+//passport
 require("./google-passport-config");
 app.set("view-engine", "ejs");
 
@@ -64,8 +64,8 @@ app.get(
   }),
   function (req, res) {
     // res.redirect("/");
-    console.log(profile);
-    console.log(req.body);
+    // console.log(profile);
+    // console.log(req.body);
     res.render("index.ejs");
     console.log("done");
   }
