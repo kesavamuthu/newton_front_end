@@ -1,0 +1,17 @@
+<style media="screen">
+  .centre{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
+</style>
+
+<!-- <ul class="people_list"> -->
+<h1>Covid 19 countries</h1>
+  {{#each info}}
+    <h2 style="text-align: center">{{this.country}}</h2>
+    <img class="centre" src="{{this.countryInfo.flag}}"></img>
+    <p>{{this.cases}}</p> 
+{{/each}}
+
+<!-- </ul> -->

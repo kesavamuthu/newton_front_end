@@ -114,3 +114,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#custom files
+constant.js
+/.metadata/
+.idea/
+.project
+.vscode
+.gitignore

@@ -25,35 +25,44 @@ function createList() {
       </div>
       `;
 
-      LIST_ITEMS.push(LIST);
+      // LIST_ITEMS.push(person);
       DRAGGABLE_LIST.appendChild(LIST);
     });
 }
 //  let first;
 document.getElementsByTagName(
-  "li",
+  "ul",
   addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("first", e.target.id);
   })
 );
 document.getElementsByTagName(
-  "li",
+  "ul",
   addEventListener("dragover", (e) => {
     e.preventDefault();
   })
 );
 document.getElementsByTagName(
-  "li",
+  "ul",
   addEventListener("drop", (e) => {
-    let tmp = e.dataTransfer.getData('first');
+    let tmp = e.dataTransfer.getData("first");
     let firstTmp = document.getElementById(tmp).innerHTML;
     let anoTmp = e.target.id;
     let secTmp = document.getElementById(anoTmp).innerHTML;
     e.target.innerHTML = firstTmp;
-    firstTmp.innerHTML = secTmp;
+    document.getElementById(tmp).innerHTML = secTmp;
   })
 );
 
+document.getElementById("check").addEventListener("click", () => {
+  let person = document.getElementsByClassName("person-name");
+  RICHEST_PEOPLE.forEach((element, index) => {
+    element == person[index].innerText.trim()
+      ? person[index].classList.add("correct")
+      : person[index].classList.add("wrong");
+    setTimeout(() => person[index].classList.remove("correct", "wrong"), 1000);
+  });
+});
 // function swap(first, sec) {
 //   let tmp = first;
 //   first = sec.innerHTML;
