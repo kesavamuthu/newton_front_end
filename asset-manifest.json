@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/newton_front_end/shopping-cart/static/css/main.9942ba39.chunk.css",
+    "main.js": "/newton_front_end/shopping-cart/static/js/main.bae2aa5d.chunk.js",
+    "main.js.map": "/newton_front_end/shopping-cart/static/js/main.bae2aa5d.chunk.js.map",
+    "runtime-main.js": "/newton_front_end/shopping-cart/static/js/runtime-main.0bc6b1ec.js",
+    "runtime-main.js.map": "/newton_front_end/shopping-cart/static/js/runtime-main.0bc6b1ec.js.map",
+    "static/js/2.b2fc5582.chunk.js": "/newton_front_end/shopping-cart/static/js/2.b2fc5582.chunk.js",
+    "static/js/2.b2fc5582.chunk.js.map": "/newton_front_end/shopping-cart/static/js/2.b2fc5582.chunk.js.map",
+    "index.html": "/newton_front_end/shopping-cart/index.html",
+    "precache-manifest.c40ae1905a7dc64bb1257786625a4def.js": "/newton_front_end/shopping-cart/precache-manifest.c40ae1905a7dc64bb1257786625a4def.js",
+    "service-worker.js": "/newton_front_end/shopping-cart/service-worker.js",
+    "static/css/main.9942ba39.chunk.css.map": "/newton_front_end/shopping-cart/static/css/main.9942ba39.chunk.css.map",
+    "static/js/2.b2fc5582.chunk.js.LICENSE.txt": "/newton_front_end/shopping-cart/static/js/2.b2fc5582.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0bc6b1ec.js",
+    "static/js/2.b2fc5582.chunk.js",
+    "static/css/main.9942ba39.chunk.css",
+    "static/js/main.bae2aa5d.chunk.js"
+  ]
+}
