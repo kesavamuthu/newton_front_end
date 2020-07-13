@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Button, Badge } from "react-bootstrap";
+import React from "react";
 import DadJokeGenerator from "./dadJokeGenerator";
+
 function App() {
   return <DadJokeGenerator />;
 }
