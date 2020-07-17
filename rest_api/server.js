@@ -12,6 +12,7 @@ app.get("/", function (req, res) {
 });
 
 require("./routes/customer.routes")(app);
+require("./routes/customer.routes.upgraded")(app);
 app.listen(port, () => {
   console.log(`listenting ---> ${port}`);
 });

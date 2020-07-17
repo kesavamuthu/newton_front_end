@@ -47,7 +47,6 @@ Customer.getAll = (result) => {
 };
 
 Customer.updateById = (id, customer, result) => {
-  // console.log(id, customer);
   sql.query(
     "update customers set email = ?, name = ?, active = ? where id = ?",
     [customer.email, customer.name, customer.active, id],
