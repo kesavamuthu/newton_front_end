@@ -14,17 +14,18 @@ class Manipulator extends React.Component {
       unacceptableFormat: false,
     };
     this.reader = this.reader.bind(this);
+    this.ref = React.createRef();
   }
 
-  async reader(ref) {
+  async reader() {
     try {
-      if (ref.current.files[0].name.match(/[^.]+$/)[0] != "xlsx") {
+      if (this.ref.current.files[0].name.match(/[^.]+$/)[0] != "xlsx") {
         this.unacceptableFormat();
         return;
       }
-      const rows = await readXlsxFile(ref.current.files[0]);
+      const rows = await readXlsxFile(this.ref.current.files[0]);
       const request = {
-        fileName: ref.current.files[0].name,
+        fileName: this.ref.current.files[0].name,
         title: rows[0],
       };
       this.setState({
@@ -36,7 +37,7 @@ class Manipulator extends React.Component {
 
       rows.slice(1, 3).forEach((element, i) => {
         request.title = element;
-        let tmp = { ...request }; //need to spread it else previous value only passing
+        let tmp = { ...request }; //need to spread it else previous value while passing
         util
           .requestMaker(tmp, "post", "excel")
           .then((res) => {
@@ -44,12 +45,6 @@ class Manipulator extends React.Component {
               this.setState({
                 data: this.state.data.concat([util.parser(tmp.title)]),
               });
-
-              // console.log(
-              //   "-------------------------------------------",
-              //   i,
-              //   res.data.fileName
-              // );
             } else {
               throw TypeError(
                 "server not accepting data there is no reason to send these data"
@@ -69,55 +64,19 @@ class Manipulator extends React.Component {
     });
   };
 
-  // requestMaker = (request) => {
-  //   return axios({
-  //     method: "post",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: request,
-  //     url: "http://localhost:9000/excel",
-  //   });
-  // };
-
-  // whatTheHeck = (ref) => {
-  //   console.log(ref.current.files[0]);
-  //   if (ref.current.files[0].name.match(/[^.]+$/)[0] != "xlsx") {
-  //     this.unacceptableFormat();
-  //     return;
-  //   }
-  //   readXlsxFile(ref.current.files[0])
-  //     .then(async (rows) => {
-  //       let result = [];
-  //       let request = {
-  //         fileName: ref.current.files[0].name,
-  //         title: rows[0],
-  //       };
-  //       let resp = await this.requestMaker(request);
-  //       if (resp) {
-  //         request.fileName = resp.data.fileName;
-  //         request.message = resp.data.message;
-  //         rows.slice(0).forEach((e) => {
-  //           request.title = e;
-  //           result.push({ ...request });
-  //         });
-  //       }
-  //       return result;
-  //     })
-  //     .then((res) => {
-  //       res.forEach((e) => this.requestMaker(e));
-  //     });
-  // };
-
   render() {
     return (
       <>
         <Jumbotron fluid>
-          {!this.state.unacceptableFormat ? (
-            <ExcelInput onRead={this.reader} />
-          ) : (
-            <Warning onClick={this.unacceptableFormat} />
-          )}
+          <ExcelInput
+            onRead={this.reader}
+            show={!this.state.unacceptableFormat && !this.state.data.length}
+            refer={this.ref}
+          />
+          <Warning
+            show={this.state.unacceptableFormat}
+            onClick={this.unacceptableFormat}
+          />
           <ShowPassedData data={this.state.data} />
         </Jumbotron>
       </>
