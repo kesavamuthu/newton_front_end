@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 // import { Button, Alert } from "react-bootstrap";
 import ButtonComponent from "./button";
-import "./App.css";
+import "./dad.css";
 
 class DadJokeGenerator extends React.Component {
   constructor() {
@@ -61,12 +61,7 @@ class DadJokeGenerator extends React.Component {
               {this.state.punchline}
             </div>
           </div>
-          <ButtonComponent
-            onClick={this.fetcher}
-            style={{
-              backgroundColor: "blue",
-            }}
-          >
+          <ButtonComponent onClick={this.fetcher} className={"another"}>
             Another
           </ButtonComponent>
         </>
