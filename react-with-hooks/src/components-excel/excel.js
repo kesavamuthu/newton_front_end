@@ -1,8 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-// const ref = React.createRef();
-
 function MyDropzone(props) {
   return (
     <span>

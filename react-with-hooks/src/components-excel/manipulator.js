@@ -2,6 +2,7 @@ import React from "react";
 import readXlsxFile from "read-excel-file";
 import util from "./utility";
 import InitialLoad from "./initialUploadScreen";
+import "./Excel.css";
 
 class Manipulator extends React.Component {
   constructor(props) {
