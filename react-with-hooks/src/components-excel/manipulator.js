@@ -1,14 +1,15 @@
 import React from "react";
 import ExcelInput from "./excel";
 import readXlsxFile from "read-excel-file";
-import axios from "axios";
 import Warning from "./warning";
+import ShowPassedData from "./dispaly";
+import util from "./utility";
 
 class Manipulator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "",
+      data: [],
       unacceptableFormat: false,
     };
     this.reader = this.reader.bind(this);
@@ -16,7 +17,6 @@ class Manipulator extends React.Component {
 
   async reader(ref) {
     try {
-      console.log(ref.current.files[0]);
       if (ref.current.files[0].name.match(/[^.]+$/)[0] != "xlsx") {
         this.unacceptableFormat();
         return;
@@ -24,37 +24,41 @@ class Manipulator extends React.Component {
       const rows = await readXlsxFile(ref.current.files[0]);
       const request = {
         fileName: ref.current.files[0].name,
-        title: [],
+        title: rows[0],
       };
-      rows.slice(0, 10).forEach(async (element, i) => {
+      this.setState({
+        data: this.state.data.concat([util.parser(rows[0])]),
+      });
+      let response = await util.requestMaker(request, "post", "excel");
+      request.message = response.data.message;
+      request.fileName = response.data.fileName;
+
+      rows.slice(1, 3).forEach((element, i) => {
         request.title = element;
-        // request.message = "hai" + i;
-        console.table(request);
-        await axios({
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: request,
-          url: "http://localhost:9000/excel",
-        })
+        let tmp = { ...request };
+        util
+          .requestMaker(tmp, "post", "excel")
           .then((res) => {
-            console.log(request);
+            console.log(res.status);
             if (res.status == 200) {
-              request.message = res.data.message;
-              request.fileName = res.data.fileName;
-              console.log(
-                "-------------------------------------------",
-                i,
-                res.data.fileName
-              );
+              console.log("in temp ", tmp);
+
+              this.setState({
+                data: this.state.data.concat([util.parser(tmp.title)]),
+              });
+
+              // console.log(
+              //   "-------------------------------------------",
+              //   i,
+              //   res.data.fileName
+              // );
             } else {
               throw TypeError(
                 "server not accepting data there is no reason to send these data"
               );
             }
           })
-          .catch((e) => console.log);
+          .catch((e) => console.error);
       });
     } catch (error) {
       console.error(error);
@@ -67,6 +71,46 @@ class Manipulator extends React.Component {
     });
   };
 
+  // requestMaker = (request) => {
+  //   return axios({
+  //     method: "post",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: request,
+  //     url: "http://localhost:9000/excel",
+  //   });
+  // };
+
+  // whatTheHeck = (ref) => {
+  //   console.log(ref.current.files[0]);
+  //   if (ref.current.files[0].name.match(/[^.]+$/)[0] != "xlsx") {
+  //     this.unacceptableFormat();
+  //     return;
+  //   }
+  //   readXlsxFile(ref.current.files[0])
+  //     .then(async (rows) => {
+  //       let result = [];
+  //       let request = {
+  //         fileName: ref.current.files[0].name,
+  //         title: rows[0],
+  //       };
+  //       let resp = await this.requestMaker(request);
+  //       if (resp) {
+  //         request.fileName = resp.data.fileName;
+  //         request.message = resp.data.message;
+  //         rows.slice(0).forEach((e) => {
+  //           request.title = e;
+  //           result.push({ ...request });
+  //         });
+  //       }
+  //       return result;
+  //     })
+  //     .then((res) => {
+  //       res.forEach((e) => this.requestMaker(e));
+  //     });
+  // };
+
   render() {
     return (
       <>
@@ -75,6 +119,7 @@ class Manipulator extends React.Component {
         ) : (
           <Warning onClick={this.unacceptableFormat} />
         )}
+        <ShowPassedData data={this.state.data} />
       </>
     );
   }
