@@ -18,7 +18,7 @@ util.parser = (tmp) => {
    * parser is used to convert value into string because while reading the excel data from that
    * files are received as object that is not able to rendered by react.
    */
-  let out = tmp.map((e) => JSON.stringify(e));
+  let out = tmp.map((e) => JSON.parse(JSON.stringify(e)));
   return out;
 };
 

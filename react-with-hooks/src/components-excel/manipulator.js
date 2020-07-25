@@ -67,18 +67,21 @@ class Manipulator extends React.Component {
   render() {
     return (
       <>
-        <Jumbotron fluid>
-          <ExcelInput
-            onRead={this.reader}
-            show={!this.state.unacceptableFormat && !this.state.data.length}
-            refer={this.ref}
-          />
-          <Warning
-            show={this.state.unacceptableFormat}
-            onClick={this.unacceptableFormat}
-          />
+        {!this.state.data.length ? (
+          <Jumbotron>
+            <ExcelInput
+              onRead={this.reader}
+              show={!this.state.unacceptableFormat && !this.state.data.length}
+              refer={this.ref}
+            />
+            <Warning
+              show={this.state.unacceptableFormat}
+              onClick={this.unacceptableFormat}
+            />
+          </Jumbotron>
+        ) : (
           <ShowPassedData data={this.state.data} />
-        </Jumbotron>
+        )}
       </>
     );
   }
