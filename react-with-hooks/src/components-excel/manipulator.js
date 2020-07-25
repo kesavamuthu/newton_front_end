@@ -4,6 +4,7 @@ import readXlsxFile from "read-excel-file";
 import Warning from "./warning";
 import ShowPassedData from "./dispaly";
 import util from "./utility";
+import { Jumbotron } from "react-bootstrap";
 
 class Manipulator extends React.Component {
   constructor(props) {
@@ -35,14 +36,11 @@ class Manipulator extends React.Component {
 
       rows.slice(1, 3).forEach((element, i) => {
         request.title = element;
-        let tmp = { ...request };
+        let tmp = { ...request }; //need to spread it else previous value only passing
         util
           .requestMaker(tmp, "post", "excel")
           .then((res) => {
-            console.log(res.status);
-            if (res.status == 200) {
-              console.log("in temp ", tmp);
-
+            if (res.status === 200) {
               this.setState({
                 data: this.state.data.concat([util.parser(tmp.title)]),
               });
@@ -114,12 +112,14 @@ class Manipulator extends React.Component {
   render() {
     return (
       <>
-        {!this.state.unacceptableFormat ? (
-          <ExcelInput onRead={this.reader} />
-        ) : (
-          <Warning onClick={this.unacceptableFormat} />
-        )}
-        <ShowPassedData data={this.state.data} />
+        <Jumbotron fluid>
+          {!this.state.unacceptableFormat ? (
+            <ExcelInput onRead={this.reader} />
+          ) : (
+            <Warning onClick={this.unacceptableFormat} />
+          )}
+          <ShowPassedData data={this.state.data} />
+        </Jumbotron>
       </>
     );
   }

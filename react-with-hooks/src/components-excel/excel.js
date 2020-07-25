@@ -1,10 +1,17 @@
 import React from "react";
-// import readXlsxFile from "read-excel-file";
+import { Button } from "react-bootstrap";
 
 const ref = React.createRef();
 
 function MyDropzone(props) {
-  return <input type="file" onChange={() => props.onRead(ref)} ref={ref} />;
+  return (
+    <span>
+      <Button variant="secondary" className={"mine"}>
+        <input type="file" onChange={() => props.onRead(ref)} ref={ref} />
+        File upload
+      </Button>
+    </span>
+  );
 }
 
 // function reader() {
