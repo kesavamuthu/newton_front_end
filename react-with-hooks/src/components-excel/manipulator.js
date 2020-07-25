@@ -26,27 +26,35 @@ class Manipulator extends React.Component {
         fileName: ref.current.files[0].name,
         title: [],
       };
-      rows.forEach(async (element, i) => {
+      rows.slice(0, 10).forEach(async (element, i) => {
         request.title = element;
-        let res = await axios({
+        // request.message = "hai" + i;
+        console.table(request);
+        await axios({
           method: "post",
           headers: {
             "Content-Type": "application/json",
           },
           data: request,
           url: "http://localhost:9000/excel",
-        });
-        console.log(request);
-        if (res.status == 200) {
-          request.message = res.data.message;
-          request.fileName = res.data.fileName;
-          console.log("-------------------------------------------");
-        } else {
-          throw TypeError(
-            "server not accepting data there is no reason to send these data"
-          );
-        }
-        console.log(res.data.message);
+        })
+          .then((res) => {
+            console.log(request);
+            if (res.status == 200) {
+              request.message = res.data.message;
+              request.fileName = res.data.fileName;
+              console.log(
+                "-------------------------------------------",
+                i,
+                res.data.fileName
+              );
+            } else {
+              throw TypeError(
+                "server not accepting data there is no reason to send these data"
+              );
+            }
+          })
+          .catch((e) => console.log);
       });
     } catch (error) {
       console.error(error);
