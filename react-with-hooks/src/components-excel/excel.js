@@ -4,20 +4,14 @@ import { Button } from "react-bootstrap";
 // const ref = React.createRef();
 
 function MyDropzone(props) {
-  if (props.show)
-    return (
-      <span>
-        <Button variant="secondary" className={"mine"}>
-          <input
-            type="file"
-            onChange={() => props.onRead()}
-            ref={props.refer}
-          />
-          File upload
-        </Button>
-      </span>
-    );
-  return null;
+  return (
+    <span>
+      <Button variant="secondary" className={"mine"}>
+        <input type="file" onChange={() => props.onRead()} ref={props.refer} />
+        File upload
+      </Button>
+    </span>
+  );
 }
 
 // function reader() {

@@ -1,17 +1,13 @@
 import React from "react";
-import ExcelInput from "./excel";
 import readXlsxFile from "read-excel-file";
-import Warning from "./warning";
-import ShowPassedData from "./dispaly";
 import util from "./utility";
-import { Jumbotron } from "react-bootstrap";
+import InitialLoad from "./initialUploadScreen";
 
 class Manipulator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
-      unacceptableFormat: false,
     };
     this.reader = this.reader.bind(this);
     this.ref = React.createRef();
@@ -19,10 +15,6 @@ class Manipulator extends React.Component {
 
   async reader() {
     try {
-      if (this.ref.current.files[0].name.match(/[^.]+$/)[0] != "xlsx") {
-        this.unacceptableFormat();
-        return;
-      }
       const rows = await readXlsxFile(this.ref.current.files[0]);
       const request = {
         fileName: this.ref.current.files[0].name,
@@ -58,31 +50,15 @@ class Manipulator extends React.Component {
     }
   }
 
-  unacceptableFormat = () => {
-    this.setState({
-      unacceptableFormat: !this.state.unacceptableFormat,
-    });
-  };
-
   render() {
     return (
-      <>
-        {!this.state.data.length ? (
-          <Jumbotron>
-            <ExcelInput
-              onRead={this.reader}
-              show={!this.state.unacceptableFormat && !this.state.data.length}
-              refer={this.ref}
-            />
-            <Warning
-              show={this.state.unacceptableFormat}
-              onClick={this.unacceptableFormat}
-            />
-          </Jumbotron>
-        ) : (
-          <ShowPassedData data={this.state.data} />
-        )}
-      </>
+      <InitialLoad
+        show={!this.state.data.length}
+        unacceptableFormat={!this.state.unacceptableFormat}
+        onRead={this.reader}
+        refer={this.ref}
+        data={this.state.data}
+      />
     );
   }
 }
