@@ -3,11 +3,25 @@ import { Table } from "react-bootstrap";
 
 function ShowPassedData(props) {
   let output = props.data.map((e, i) => {
-    let ano = e.map((res) => {
+    let ano = e.map((res, j) => {
       if (!i) {
-        return <th>{res}</th>;
+        return !j ? (
+          <>
+            <th>#</th>
+            <th>{res}</th>
+          </>
+        ) : (
+          <th>{res}</th>
+        );
       }
-      return <td>{res}</td>;
+      return !j ? (
+        <>
+          <td>{i}</td>
+          <td>{res}</td>
+        </>
+      ) : (
+        <td>{res}</td>
+      );
     });
     return <tr>{ano}</tr>;
   });
