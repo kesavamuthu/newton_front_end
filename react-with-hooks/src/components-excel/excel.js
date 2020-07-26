@@ -1,13 +1,18 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 function MyDropzone(props) {
   return (
     <span>
-      <Button variant="secondary" className={"mine"}>
-        <input type="file" onChange={() => props.onRead()} ref={props.refer} />
-        File upload
-      </Button>
+      <Form>
+        <Form.File
+          id="custom-file"
+          label="Upload your excel"
+          onChange={() => props.onRead()}
+          ref={props.refer}
+          custom
+        />
+      </Form>
     </span>
   );
 }

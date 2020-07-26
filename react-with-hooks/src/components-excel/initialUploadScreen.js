@@ -8,7 +8,7 @@ function InitialLoad(props) {
   const [show, setShow] = useState(true);
   if (props.show)
     return (
-      <Jumbotron>
+      <Jumbotron className={"jumbotron-what"}>
         {show ? (
           <ExcelInput show onRead={helper} refer={props.refer} />
         ) : (
