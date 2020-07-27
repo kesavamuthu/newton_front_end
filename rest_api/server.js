@@ -1,16 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { authenticate } = require("./authenticate");
-// const { json } = require("sequelize/types");
 const jwt = require("./helpers/token");
 const errorHandler = require("./helpers/errorHandler");
 const app = express();
 const port = 3001;
-// const db = require("./models/db.seq");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// db.connnect();
 
 app.get("/", function (req, res) {
   res.json({ hello: "what " });

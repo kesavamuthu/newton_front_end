@@ -7,19 +7,5 @@ const connection = sql.createConnection({
   password: dbConfig.PASSWORD,
   database: dbConfig.DB,
 });
-// dbConfig.newOne = "hai";
-// console.log(dbConfig);
-connection.connect((errro) => {
-  if (errro) throw errro;
-  console.log("connected successfully");
-});
-
-// Customer.getAll = function (result) {
-//   sql.query("select * from customers", function (err, result) {
-//     if (err) throw err;
-//     result(null, err);
-//     return;
-//   });
-// };
 
 module.exports = connection;
