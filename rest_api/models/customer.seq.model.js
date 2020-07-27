@@ -11,15 +11,19 @@ const Customer = sequelize.define("Customer", {
     type: DataTypes.STRING(25),
     allowNull: false,
   },
+  password: {
+    type: DataTypes.STRING(64),
+    allowNull: false,
+  },
   active: {
     type: DataTypes.BOOLEAN,
     defaultValue: 1,
   },
 });
 // sequelize.connect("Hey sequelize");
-Customer.save = async (email, name, active) => {
+Customer.save = async (email, name, password, active) => {
   await sequelize.sync(); //this also delete the data in table.
-  const jane = await Customer.create({ email, name, active });
+  const jane = await Customer.create({ email, name, password, active });
   return jane;
 };
 
@@ -30,7 +34,7 @@ Customer.findById = async ({ customerId }, callback) => {
         id: customerId,
       },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "password"],
       },
     });
     if (!rs.length) {
@@ -40,5 +44,5 @@ Customer.findById = async ({ customerId }, callback) => {
     callback(e, null);
   }
 };
-
+// sequelize.sync();
 module.exports = Customer;

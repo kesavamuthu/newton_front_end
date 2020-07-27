@@ -1,5 +1,6 @@
 const Customer = require("../models/customer.seq.model");
 const { json } = require("body-parser");
+const bcrypt = require("bcrypt");
 
 exports.create = (req, res) => {
   if (JSON.stringify(req.body) == "{}") {
@@ -9,23 +10,23 @@ exports.create = (req, res) => {
     return;
   }
   if (req.body) {
-    var { email, name, active } = req.body;
-  } else {
-    var { email, name, active } = req;
-  }
-  Customer.save(email, name, active)
-    .then(() => res.status(201).send("done"))
-    .catch((error) => {
-      console.error(error);
-      res.status(304).send();
+    var { email, name, password, active } = req.body;
+    bcrypt.hash(password, 10, function (err, result) {
+      Customer.save(email, name, result, active)
+        .then(() => res.status(201).send("done"))
+        .catch((error) => {
+          console.error(error);
+          res.status(304).send();
+        });
     });
+  }
 };
 
 exports.findAll = async (req, res) => {
   try {
     var rs = await Customer.findAll({
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["password", "createdAt", "updatedAt"],
       },
     });
     res.send(JSON.stringify(rs));
@@ -68,17 +69,19 @@ exports.update = (req, res) => {
       message: "content can't be empty",
     });
   }
-  const { name, email, active } = req.body;
+  const { name, email, password, active } = req.body;
   console.log(req.body);
   try {
-    Customer.update(
-      { name, email, active },
-      {
-        where: {
-          id: req.params.customerId,
-        },
-      }
-    ).then((val) => genericResForRUD("update ", val, res));
+    bcrypt.hash(password, 10, function (err, result) {
+      Customer.update(
+        { name, email, password: result, active },
+        {
+          where: {
+            id: req.params.customerId,
+          },
+        }
+      ).then((val) => genericResForRUD("update ", val, res));
+    });
   } catch (e) {
     console.error(e);
     res.status(500).send({
