@@ -28,7 +28,7 @@ class Manipulator extends React.Component {
       request.message = response.data.message;
       request.fileName = response.data.fileName;
 
-      rows.slice(1, 3).forEach((element, i) => {
+      rows.slice(1, 20).forEach((element, i) => {
         request.title = element;
         let tmp = { ...request }; //need to spread it else previous value while passing
         util
