@@ -73,10 +73,10 @@ class ProductParent extends React.Component {
     return (
       <form>
         {!this.state.isValid.length ? (
-          <h2>
+          <h4>
             Mandatory fields are denoted by start if didn't satisfy requirement
             it'll turn into red won't allow you to submit
-          </h2>
+          </h4>
         ) : null}
         <div onChange={this.inputPlacer}>
           <ProductDetails props={this.state} />
